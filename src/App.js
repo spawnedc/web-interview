@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-
+import './App.scss'
 import logo from './logo.png'
 import { API_ENDPOINT } from './config'
-
-import './App.scss'
 
 class App extends Component {
   constructor(props) {
@@ -17,11 +15,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    document
-      .querySelectorAll('button')
-      .querySelectorAll('[id=GP-button]')
-      .attachEventHandler('click', this.onClick)
-
     fetch(`${API_ENDPOINT}/availableSlots`)
       .then(res => res.json())
       .then(json => {
@@ -32,13 +25,13 @@ class App extends Component {
       })
   }
 
-  onClick() {
+  onClick = () => {
     this.setState({ selectedAppointmentType: 'gp' })
   }
 
   render() {
     // calculate matching slots
-    let slots = []
+    const slots = []
     for (let i = 0; i < this.state.availableSlots.length; i++) {
       for (
         let j = 0;
@@ -61,7 +54,7 @@ class App extends Component {
           <img src={logo} className="app-logo" alt="Babylon Health" />
         </div>
         <div style={{ maxWidth: 600, margin: '24px auto' }}>
-          <div className="button" id="GP-button">
+          <div className="button" id="GP-button" onClick={this.onClick}>
             GP
           </div>
           <div
@@ -90,8 +83,9 @@ class App extends Component {
           </div>
           <div>
             <strong>Appointments</strong>
-            {slots.map(slot => (
+            {slots.map((slot, index) => (
               <li
+                key={`appointment-${index}`}
                 className="appointment-button"
                 onClick={() => {
                   this.setState({ selectedAppointment: slot })
