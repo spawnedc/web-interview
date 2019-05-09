@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaRegClock, FaVideo, FaStethoscope } from 'react-icons/fa'
 import { getAvailableSlots } from '../../services/api'
 import { Pills } from '../pills'
 
@@ -25,13 +26,14 @@ export class AppointmentSelector extends React.Component {
   }
 
   onConsultantTypeClick = consultantType => {
+    const filteredSlots = this.state.availableSlots.filter(slot =>
+      slot.consultantType.includes(consultantType)
+    )
     this.setState({
-      filteredSlots: this.state.availableSlots.filter(slot =>
-        slot.consultantType.includes(consultantType)
-      ),
+      filteredSlots,
       selectedConsultantType: consultantType,
       selectedAppointmentType: null,
-      selectedAppointment: null,
+      selectedAppointment: filteredSlots.length === 1 ? filteredSlots[0] : null,
     })
   }
 
@@ -55,26 +57,49 @@ export class AppointmentSelector extends React.Component {
   }
 
   render() {
-    const { filteredSlots, consultantTypes, selectedAppointment } = this.state
+    const {
+      filteredSlots,
+      consultantTypes,
+      selectedAppointment,
+      selectedConsultantType,
+    } = this.state
 
     return (
       <div className="appointment-selector">
-        <Pills
-          items={consultantTypes}
-          onItemClick={this.onConsultantTypeClick}
-        />
+        <div className="appointment-section">
+          <div className="appointment-section-title">
+            <FaStethoscope /> Consultant Type
+          </div>
+          <Pills
+            items={consultantTypes}
+            onItemClick={this.onConsultantTypeClick}
+          />
+          {selectedConsultantType && <p>Babylon {selectedConsultantType}</p>}
+        </div>
 
-        <Pills
-          items={filteredSlots}
-          getItemDisplayValue={slot => slot.time}
-          onItemClick={this.onAppointmentSlotClick}
-        />
+        {filteredSlots.length > 0 && (
+          <div className="appointment-section">
+            <div className="appointment-section-title">
+              <FaRegClock /> Date &amp; Time
+            </div>
+            <Pills
+              items={filteredSlots}
+              getItemDisplayValue={slot => slot.time}
+              onItemClick={this.onAppointmentSlotClick}
+            />
+          </div>
+        )}
 
         {selectedAppointment && (
-          <Pills
-            items={selectedAppointment.appointmentType}
-            onItemClick={this.onAppointmentTypeClick}
-          />
+          <div className="appointment-section">
+            <div className="appointment-section-title">
+              <FaVideo /> Appointment Type
+            </div>
+            <Pills
+              items={selectedAppointment.appointmentType}
+              onItemClick={this.onAppointmentTypeClick}
+            />
+          </div>
         )}
       </div>
     )
