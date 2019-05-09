@@ -1,0 +1,28 @@
+@import '../../constants.scss';
+
+$header-height: 32px;
+
+.app-header {
+  align-items: center;
+  border-bottom: $border-standard;
+  display: flex;
+  height: $header-height;
+  justify-content: space-between;
+  padding: $gutter-size--large;
+
+  .app-logo {
+    max-height: 100%;
+  }
+
+  .user-circle {
+    align-items: center;
+    background-color: $secondary-dark;
+    border-radius: 50%;
+    color: $secondary-light;
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    height: $header-height;
+    width: $header-height;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AppointmentSelector from '../../containers/AppointmentSelector'
-import { Header } from '../Header'
+import { Header } from '../Header/Header'
 import { User } from '../User'
 import './App.scss'
 
