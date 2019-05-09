@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
+import AppointmentSelector from '../../containers/AppointmentSelector'
+import { Header } from '../Header'
+import { User } from '../User'
 import './App.scss'
-import { AppointmentSelector } from './components/appointment-selector'
-import { Header } from './components/header'
-import { User } from './components/user'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      userId: 1,
-    }
-  }
-
   render() {
     return (
       <div className="app">
