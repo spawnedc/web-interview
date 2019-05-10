@@ -48,6 +48,9 @@ export const bookAppointment = async appointment => {
   try {
     const response = await fetch(`${API_ENDPOINT}/appointments`, {
       method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(appointment),
     })
     const json = await response.json()
