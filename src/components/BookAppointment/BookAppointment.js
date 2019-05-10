@@ -8,7 +8,7 @@ import {
   FaVideo,
 } from 'react-icons/fa'
 import UserBox from '../../containers/UserBox'
-import { getAvailableSlots } from '../../services/api'
+import { getAvailableSlots, bookAppointment } from '../../services/api'
 import { Pills } from '../Pills/Pills'
 import './BookAppointment.scss'
 
@@ -58,8 +58,8 @@ class BookAppointment extends React.Component {
     )
   }
 
-  submitForm = e => {
-    e.preventDefault()
+  submitForm = async event => {
+    event.preventDefault()
     const { appointment, userId } = this.props
     const data = {
       userId,
@@ -67,7 +67,12 @@ class BookAppointment extends React.Component {
       notes: appointment.notes,
       type: `${appointment.consultantType} appointment`,
     }
-    console.warn(data)
+
+    try {
+      await bookAppointment(data)
+    } catch (e) {
+      console.warn(e)
+    }
   }
 
   componentDidMount() {

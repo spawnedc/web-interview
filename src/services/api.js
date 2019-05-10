@@ -43,3 +43,17 @@ export const getAvailableSlots = async () => {
 
 export const getUser = userId =>
   makeGetRequest(`${API_ENDPOINT}/users/${userId}`)
+
+export const bookAppointment = async appointment => {
+  try {
+    const response = await fetch(`${API_ENDPOINT}/appointments`, {
+      method: 'post',
+      body: JSON.stringify(appointment),
+    })
+    const json = await response.json()
+    return json
+  } catch (e) {
+    console.error(e)
+    return null
+  }
+}
