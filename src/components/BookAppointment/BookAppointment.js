@@ -24,6 +24,8 @@ class BookAppointment extends React.Component {
     setAppointmentType: PropTypes.func.isRequired,
     setConsultantType: PropTypes.func.isRequired,
     setSelectedSlot: PropTypes.func.isRequired,
+    setAppointmentNotes: PropTypes.func.isRequired,
+    userId: PropTypes.number,
   }
 
   static defaultProps = {
@@ -42,6 +44,10 @@ class BookAppointment extends React.Component {
     this.props.setAppointmentType(appointmentType)
   }
 
+  onNotesChange = event => {
+    this.props.setAppointmentNotes(event.target.value)
+  }
+
   canSubmitForm = () => {
     const { appointment } = this.props
 
@@ -50,6 +56,18 @@ class BookAppointment extends React.Component {
       appointment.selectedSlot &&
       appointment.appointmentType
     )
+  }
+
+  submitForm = e => {
+    e.preventDefault()
+    const { appointment, userId } = this.props
+    const data = {
+      userId,
+      dateTime: appointment.selectedSlot.time,
+      notes: appointment.notes,
+      type: `${appointment.consultantType} appointment`,
+    }
+    console.warn(data)
   }
 
   componentDidMount() {
@@ -69,7 +87,7 @@ class BookAppointment extends React.Component {
 
         <UserBox userId={1} />
 
-        <form className="appointmen-form">
+        <form onSubmit={this.submitForm} className="appointmen-form">
           <div className="form-sections-wrapper">
             <fieldset className="form-section">
               <legend className="form-section-title">
@@ -148,6 +166,7 @@ class BookAppointment extends React.Component {
               </legend>
               <div className="form-section-content">
                 <textarea
+                  onChange={this.onNotesChange}
                   className="appointment-notes"
                   placeholder="Describe your symptoms"
                 />

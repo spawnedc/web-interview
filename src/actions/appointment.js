@@ -2,6 +2,7 @@ import {
   SET_APPOINTMENT_SLOT,
   SET_CONSULTANT_TYPE,
   SET_APPOINTMENT_TYPE,
+  SET_APPOINTMENT_NOTES,
 } from '../actionTypes'
 
 export const setConsultantType = consultantType => ({
@@ -17,4 +18,9 @@ export const setSelectedSlot = appointmentSlot => ({
 export const setAppointmentType = appointmentType => ({
   type: SET_APPOINTMENT_TYPE,
   payload: appointmentType,
+})
+
+export const setAppointmentNotes = notes => ({
+  type: SET_APPOINTMENT_NOTES,
+  payload: notes,
 })

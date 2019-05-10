@@ -2,6 +2,7 @@ import {
   SET_APPOINTMENT_SLOT,
   SET_CONSULTANT_TYPE,
   SET_APPOINTMENT_TYPE,
+  SET_APPOINTMENT_NOTES,
 } from '../actionTypes'
 
 const initialState = {
@@ -32,6 +33,12 @@ const appointmentSlotsReducer = (state = initialState, action) => {
       return {
         ...state,
         appointmentType: action.payload,
+      }
+
+    case SET_APPOINTMENT_NOTES:
+      return {
+        ...state,
+        notes: action.payload,
       }
 
     default:
