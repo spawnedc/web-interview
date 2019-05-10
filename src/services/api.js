@@ -27,7 +27,7 @@ export const getAvailableSlots = async () => {
         // current one
         const displayValue = isToday
           ? `Today ${slotTime.format('HH:MM')}`
-          : slotTime.format('ddd, D MMM @ HH:MM')
+          : slotTime.format('D MMM @ HH:MM')
         return {
           ...slot,
           displayValue,
@@ -42,4 +42,4 @@ export const getAvailableSlots = async () => {
 }
 
 export const getUser = userId =>
-  makeGetRequest(`${API_ENDPOINT}/user/${userId}`)
+  makeGetRequest(`${API_ENDPOINT}/users/${userId}`)

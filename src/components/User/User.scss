@@ -1,0 +1,20 @@
+@import '../../constants.scss';
+
+.user {
+  align-items: center;
+  border-bottom: $border-standard;
+  display: flex;
+  height: 80px;
+  margin-bottom: $gutter-size--xlarge;
+  padding-bottom: $gutter-size--xlarge;
+
+  &-image {
+    height: 64px;
+    width: 64px;
+    margin-right: $gutter-size--large;
+  }
+
+  &-name {
+    font-weight: bold;
+  }
+}
