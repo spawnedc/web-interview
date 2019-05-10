@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import {
+  setAppointmentType,
   setConsultantType,
   setSelectedSlot,
-  setAppointmentType,
 } from '../actions/appointment'
 import { setAppointmentSlots } from '../actions/appointmentSlots'
-import AppointmentSelector from '../components/AppointmentSelector'
+import BookAppointment from '../components/BookAppointment/BookAppointment'
 
 const mapStateToProps = state => ({
   appointment: state.appointment,
@@ -23,4 +23,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AppointmentSelector)
+)(BookAppointment)
