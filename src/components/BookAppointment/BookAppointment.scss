@@ -8,19 +8,58 @@
     margin: 0 0 $gutter-size--xlarge 0;
     padding: 0;
 
+    &:last-child {
+      border-bottom: $border-standard;
+      padding-bottom: 32px;
+    }
+
     &-title {
       align-items: center;
       display: flex;
+      font-weight: bold;
       margin-bottom: $gutter-size--xlarge;
     }
 
     &-icon {
       color: $icon-color;
-      margin-right: $gutter-size--large
+      margin-right: $gutter-size--xlarge;
+
+      svg {
+        height: 18px;
+        width: 18px;
+      }
     }
 
     &-content {
-      margin-left: (16px + $gutter-size--large);
+      margin-left: 32px;
     }
+  }
+
+  .submit-button {
+    background: $positive-light;
+    border: 0;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    height: 40px;
+    margin-top: $gutter-size--large;
+    width: 100%;
+
+    &:disabled {
+      background-color: $secondary-dark;
+      opacity: .5;
+    }
+  }
+
+  .appointment-notes {
+    border-radius: 10px;
+    height: 100px;
+    padding: $gutter-size;
+    width: 100%;
+  }
+
+  .selected-consultant-type {
+    display: block;
+    margin-top: 32px;
   }
 }

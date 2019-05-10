@@ -9,7 +9,7 @@
 }
 
 .pill {
-  margin-bottom: $gutter-size;
+  margin-bottom: $gutter-size--large;
   margin-right: $gutter-size--large;
 
   &-radio-input {
@@ -30,7 +30,6 @@
     cursor: pointer;
     color: $label-color;
     display: block;
-    height: 18px;
     padding: $gutter-size--large $gutter-size--large * 2;
     white-space: nowrap;
 

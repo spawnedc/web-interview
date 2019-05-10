@@ -1,6 +1,6 @@
 @import '../../constants.scss';
 
-$header-height: 32px;
+$header-height: 48px;
 
 .app-header {
   align-items: center;
@@ -22,7 +22,7 @@ $header-height: 32px;
     display: flex;
     font-size: 14px;
     justify-content: center;
-    height: $header-height;
-    width: $header-height;
+    height: 32px;
+    width: 32px;
   }
 }
