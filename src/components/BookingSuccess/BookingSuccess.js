@@ -2,12 +2,13 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { FaRegClock, FaStethoscope, FaVideo } from 'react-icons/fa'
+import { LONG_DATE_TIME } from '../../constants/dateTimeFormats'
 import './BookingSuccess.scss'
 
 const BookingSuccess = props => {
   const { appointment } = props
 
-  const dateTime = moment(appointment.dateTime).format('ddd DD MMM @ HH:MM')
+  const dateTime = moment(appointment.dateTime).format(LONG_DATE_TIME)
 
   return (
     <div className="booking-success">

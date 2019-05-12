@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { API_ENDPOINT } from '../config'
+import { HOURS_MINUTES, SHORT_DATE_TIME } from '../constants/dateTimeFormats.js'
 
 const makeGetRequest = async url => {
   try {
@@ -26,8 +27,8 @@ export const getAvailableSlots = async () => {
         // if it's the same year as well. We can add the year if it's not the
         // current one
         const displayValue = isToday
-          ? `Today ${slotTime.format('HH:MM')}`
-          : slotTime.format('D MMM @ HH:MM')
+          ? `Today ${slotTime.format(HOURS_MINUTES)}`
+          : slotTime.format(SHORT_DATE_TIME)
         return {
           ...slot,
           displayValue,
