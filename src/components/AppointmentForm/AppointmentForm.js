@@ -88,11 +88,19 @@ class AppointmentForm extends React.Component {
       <form onSubmit={this.submitForm} className="appointmen-form">
         <div className="form-sections-wrapper">
           <fieldset className="form-section">
-            <legend className="form-section-title">
+            <legend
+              className="form-section-title"
+              aria-labelledby="consultant-type-label"
+            >
               <span className="form-section-icon">
                 <FaStethoscope />
               </span>
-              <span className="form-section-title-label">Consultant Type</span>
+              <span
+                id="consultant-type-label"
+                className="form-section-title-label"
+              >
+                Consultant Type
+              </span>
             </legend>
             <div className="form-section-content">
               <Pills
@@ -112,11 +120,14 @@ class AppointmentForm extends React.Component {
 
           {appointment.consultantType && (
             <fieldset className="form-section">
-              <legend className="form-section-title">
+              <legend
+                className="form-section-title"
+                aria-labelledby="date-time-label"
+              >
                 <span className="form-section-icon">
                   <FaRegClock />
                 </span>
-                <span className="form-section-title-label">
+                <span id="date-time-label" className="form-section-title-label">
                   Date &amp; Time
                 </span>
               </legend>
@@ -134,11 +145,17 @@ class AppointmentForm extends React.Component {
 
           {appointment.selectedSlot && (
             <fieldset className="form-section">
-              <legend className="form-section-title">
+              <legend
+                className="form-section-title"
+                aria-labelledby="appointment-type-label"
+              >
                 <span className="form-section-icon">
                   <FaVideo />
                 </span>
-                <span className="form-section-title-label">
+                <span
+                  id="appointment-type-label"
+                  className="form-section-title-label"
+                >
                   Appointment Type
                 </span>
               </legend>
@@ -154,14 +171,23 @@ class AppointmentForm extends React.Component {
           )}
 
           <fieldset className="form-section">
-            <legend className="form-section-title">
+            <legend
+              className="form-section-title"
+              aria-labelledby="appointment-notes-label"
+            >
               <span className="form-section-icon">
                 <FaNotesMedical />
               </span>
-              <span className="form-section-title-label">Notes</span>
+              <span
+                id="appointment-notes-label"
+                className="form-section-title-label"
+              >
+                Notes
+              </span>
             </legend>
             <div className="form-section-content">
               <textarea
+                aria-labelledby="appointment-notes-label"
                 onChange={this.onNotesChange}
                 className="appointment-notes"
                 placeholder="Describe your symptoms"
@@ -170,14 +196,22 @@ class AppointmentForm extends React.Component {
           </fieldset>
 
           <fieldset className="form-section">
-            <legend className="form-section-title">
+            <legend
+              className="form-section-title"
+              aria-labelledby="appointment-image-label"
+            >
               <span className="form-section-icon">
                 <FaRegImages />
               </span>
-              <span className="form-section-title-label">Attach a photo</span>
+              <span
+                id="appointment-image-label"
+                className="form-section-title-label"
+              >
+                Attach a photo
+              </span>
             </legend>
             <div className="form-section-content">
-              <input type="file" />
+              <input aria-labelledby="appointment-image-label" type="file" />
             </div>
           </fieldset>
         </div>

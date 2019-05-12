@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import uniqid from 'uniqid'
 import './Pills.scss'
 
 export class Pills extends React.Component {
@@ -26,6 +27,7 @@ export class Pills extends React.Component {
       <ul className="pills" role="radiogroup">
         {items.map((item, index) => {
           const isSelected = item === selectedItem
+          const id = uniqid()
 
           return (
             <li
@@ -33,8 +35,14 @@ export class Pills extends React.Component {
               onClick={this.onItemClick(item)}
               key={`item-${index}`}
             >
-              <input type="radio" name={name} className="pill-radio-input" />
+              <input
+                id={id}
+                type="radio"
+                name={name}
+                className="pill-radio-input"
+              />
               <label
+                htmlFor={id}
                 className={`pill-label ${isSelected ? 'is-selected' : ''}`}
               >
                 {getItemDisplayValue(item)}
