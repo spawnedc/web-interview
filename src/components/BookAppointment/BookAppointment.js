@@ -1,90 +1,40 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {
-  FaNotesMedical,
-  FaRegClock,
-  FaRegImages,
-  FaStethoscope,
-  FaVideo,
-} from 'react-icons/fa'
+import AppointmentForm from '../../containers/AppointmentForm'
 import UserBox from '../../containers/UserBox'
-import { getAvailableSlots, bookAppointment } from '../../services/api'
-import { Pills } from '../Pills/Pills'
+import { bookAppointment } from '../../services/api'
+import BookingSuccess from '../BookingSuccess/BookingSuccess'
+import BookingError from '../BookingError/BookingError'
 import './BookAppointment.scss'
 
 class BookAppointment extends React.Component {
   static propTypes = {
-    appointment: PropTypes.object.isRequired,
-    appointmentSlots: PropTypes.shape({
-      all: PropTypes.array,
-      available: PropTypes.array,
-    }),
-    consultantTypes: PropTypes.array,
-    setAppointmentSlots: PropTypes.func.isRequired,
-    setAppointmentType: PropTypes.func.isRequired,
-    setConsultantType: PropTypes.func.isRequired,
-    setSelectedSlot: PropTypes.func.isRequired,
-    setAppointmentNotes: PropTypes.func.isRequired,
-    userId: PropTypes.number,
+    booking: PropTypes.object.isRequired,
+    startBooking: PropTypes.func.isRequired,
+    resetBooking: PropTypes.func.isRequired,
+    bookingSuccess: PropTypes.func.isRequired,
+    bookingFailure: PropTypes.func.isRequired,
+    isIdle: PropTypes.bool.isRequired,
+    isInProgress: PropTypes.bool.isRequired,
+    isSuccess: PropTypes.bool.isRequired,
+    isFailure: PropTypes.bool.isRequired,
   }
 
-  static defaultProps = {
-    consultantTypes: [],
-  }
-
-  onConsultantTypeClick = consultantType => {
-    this.props.setConsultantType(consultantType)
-  }
-
-  onAppointmentSlotClick = appointmentSlot => {
-    this.props.setSelectedSlot(appointmentSlot)
-  }
-
-  onAppointmentTypeClick = appointmentType => {
-    this.props.setAppointmentType(appointmentType)
-  }
-
-  onNotesChange = event => {
-    this.props.setAppointmentNotes(event.target.value)
-  }
-
-  canSubmitForm = () => {
-    const { appointment } = this.props
-
-    return (
-      appointment.consultantType &&
-      appointment.selectedSlot &&
-      appointment.appointmentType
-    )
-  }
-
-  submitForm = async event => {
-    event.preventDefault()
-    const { appointment, userId } = this.props
-    const data = {
-      userId,
-      dateTime: appointment.selectedSlot.time,
-      notes: appointment.notes,
-      type: `${appointment.consultantType} appointment`,
-    }
+  onSubmit = async data => {
+    const { startBooking, bookingSuccess, bookingFailure } = this.props
 
     try {
-      await bookAppointment(data)
+      startBooking()
+      const newAppointment = await bookAppointment(data)
+      bookingSuccess(newAppointment)
     } catch (e) {
-      console.warn(e)
+      bookingFailure(e.message)
     }
-  }
-
-  componentDidMount() {
-    getAvailableSlots()
-      .then(slots => this.props.setAppointmentSlots(slots))
-      .catch(e => {
-        console.error(e)
-      })
   }
 
   render() {
-    const { appointment, appointmentSlots, consultantTypes } = this.props
+    const { booking, isIdle, isInProgress, isSuccess, isFailure } = this.props
+    const { appointment, error } = booking
 
     return (
       <section className="book-appointment">
@@ -92,113 +42,13 @@ class BookAppointment extends React.Component {
 
         <UserBox userId={1} />
 
-        <form onSubmit={this.submitForm} className="appointmen-form">
-          <div className="form-sections-wrapper">
-            <fieldset className="form-section">
-              <legend className="form-section-title">
-                <span className="form-section-icon">
-                  <FaStethoscope />
-                </span>
-                <span className="form-section-title-label">
-                  Consultant Type
-                </span>
-              </legend>
-              <div className="form-section-content">
-                <Pills
-                  name="consultant-type"
-                  items={consultantTypes}
-                  onItemClick={this.onConsultantTypeClick}
-                  selectedItem={appointment.consultantType}
-                />
+        {isSuccess && <BookingSuccess appointment={appointment} />}
 
-                {appointment.consultantType && (
-                  <small className="selected-consultant-type">{`Babylon ${
-                    appointment.consultantType
-                  }`}</small>
-                )}
-              </div>
-            </fieldset>
+        {isFailure && <BookingError error={error} />}
 
-            {appointmentSlots.available.length > 0 && (
-              <fieldset className="form-section">
-                <legend className="form-section-title">
-                  <span className="form-section-icon">
-                    <FaRegClock />
-                  </span>
-                  <span className="form-section-title-label">
-                    Date &amp; Time
-                  </span>
-                </legend>
-                <div className="form-section-content">
-                  <Pills
-                    name="date-time"
-                    items={appointmentSlots.available}
-                    getItemDisplayValue={slot => slot.displayValue}
-                    onItemClick={this.onAppointmentSlotClick}
-                    selectedItem={appointment.selectedSlot}
-                  />
-                </div>
-              </fieldset>
-            )}
+        {isInProgress && <h2>Hold on. We are booking your appointment...</h2>}
 
-            {appointment.selectedSlot && (
-              <fieldset className="form-section">
-                <legend className="form-section-title">
-                  <span className="form-section-icon">
-                    <FaVideo />
-                  </span>
-                  <span className="form-section-title-label">
-                    Appointment Type
-                  </span>
-                </legend>
-                <div className="form-section-content">
-                  <Pills
-                    name="appointment-type"
-                    items={appointment.selectedSlot.appointmentType}
-                    onItemClick={this.onAppointmentTypeClick}
-                    selectedItem={appointment.appointmentType}
-                  />
-                </div>
-              </fieldset>
-            )}
-
-            <fieldset className="form-section">
-              <legend className="form-section-title">
-                <span className="form-section-icon">
-                  <FaNotesMedical />
-                </span>
-                <span className="form-section-title-label">Notes</span>
-              </legend>
-              <div className="form-section-content">
-                <textarea
-                  onChange={this.onNotesChange}
-                  className="appointment-notes"
-                  placeholder="Describe your symptoms"
-                />
-              </div>
-            </fieldset>
-
-            <fieldset className="form-section">
-              <legend className="form-section-title">
-                <span className="form-section-icon">
-                  <FaRegImages />
-                </span>
-                <span className="form-section-title-label">Attach a photo</span>
-              </legend>
-              <div className="form-section-content">
-                <input type="file" />
-              </div>
-            </fieldset>
-          </div>
-
-          <button
-            disabled={!this.canSubmitForm()}
-            className="submit-button"
-            type="submit"
-          >
-            Book
-          </button>
-        </form>
+        {isIdle && <AppointmentForm onSubmit={this.onSubmit} />}
       </section>
     )
   }

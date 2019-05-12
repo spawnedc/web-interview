@@ -1,26 +1,26 @@
 import { connect } from 'react-redux'
-import {
-  setAppointmentType,
-  setConsultantType,
-  setSelectedSlot,
-  setAppointmentNotes,
-} from '../actions/appointment'
-import { setAppointmentSlots } from '../actions/appointmentSlots'
 import BookAppointment from '../components/BookAppointment/BookAppointment'
+import bookingStatus from '../constants/bookingStatus'
+import {
+  startBooking,
+  resetBooking,
+  bookingSuccess,
+  bookingFailure,
+} from '../actions/booking.js'
 
 const mapStateToProps = state => ({
-  appointment: state.appointment,
-  appointmentSlots: state.appointmentSlots,
-  consultantTypes: state.consultantTypes,
-  userId: state.user.id,
+  booking: state.booking,
+  isIdle: state.booking.status === bookingStatus.IDLE,
+  isInProgress: state.booking.status === bookingStatus.IN_PROGRESS,
+  isSuccess: state.booking.status === bookingStatus.SUCCESS,
+  isFailure: state.booking.status === bookingStatus.FAILURE,
 })
 
 const mapDispatchToProps = dispatch => ({
-  setAppointmentSlots: slots => dispatch(setAppointmentSlots(slots)),
-  setConsultantType: type => dispatch(setConsultantType(type)),
-  setSelectedSlot: slot => dispatch(setSelectedSlot(slot)),
-  setAppointmentType: type => dispatch(setAppointmentType(type)),
-  setAppointmentNotes: notes => dispatch(setAppointmentNotes(notes)),
+  startBooking: () => dispatch(startBooking()),
+  resetBooking: () => dispatch(resetBooking()),
+  bookingSuccess: appointment => dispatch(bookingSuccess(appointment)),
+  bookingFailure: error => dispatch(bookingFailure(error)),
 })
 
 export default connect(

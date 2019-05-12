@@ -9,7 +9,7 @@ const initialState = {
   consultantType: null,
   selectedSlot: null,
   appointmentType: null,
-  notes: '',
+  notes: null,
 }
 
 const appointmentSlotsReducer = (state = initialState, action) => {
