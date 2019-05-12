@@ -1,8 +1,8 @@
 import {
+  BOOKING_FAILURE,
+  BOOKING_SUCCESS,
   RESET_BOOKING,
   START_BOOKING,
-  BOOKING_SUCCESS,
-  BOOKING_FAILURE,
 } from '../actionTypes'
 import bookingStatus from '../constants/bookingStatus'
 
@@ -12,7 +12,7 @@ const initialState = {
   error: null,
 }
 
-const appointmentSlotsReducer = (state = initialState, action) => {
+const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case RESET_BOOKING:
       return {
@@ -44,4 +44,4 @@ const appointmentSlotsReducer = (state = initialState, action) => {
   }
 }
 
-export default appointmentSlotsReducer
+export default bookingReducer

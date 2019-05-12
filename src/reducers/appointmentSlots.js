@@ -20,7 +20,7 @@ const appointmentSlotsReducer = (state = initialState, action) => {
       return {
         ...state,
         available: state.all.filter(slot =>
-          slot.consultantType.includes(typeKey)
+          slot.consultantType.includes(typeKey || action.payload)
         ),
       }
 

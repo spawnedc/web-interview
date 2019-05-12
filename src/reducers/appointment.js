@@ -13,7 +13,7 @@ const initialState = {
   notes: null,
 }
 
-const appointmentSlotsReducer = (state = initialState, action) => {
+const appointmentReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CONSULTANT_TYPE:
       return {
@@ -52,4 +52,4 @@ const appointmentSlotsReducer = (state = initialState, action) => {
   }
 }
 
-export default appointmentSlotsReducer
+export default appointmentReducer
