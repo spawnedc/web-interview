@@ -1,17 +1,7 @@
 import moment from 'moment'
 import { API_ENDPOINT } from '../config'
 import { HOURS_MINUTES, SHORT_DATE_TIME } from '../constants/dateTimeFormats.js'
-
-const makeGetRequest = async url => {
-  try {
-    const response = await fetch(url)
-    const json = await response.json()
-    return json
-  } catch (e) {
-    console.error(e)
-    return null
-  }
-}
+import { makeGetRequest, makePostRequest } from './utils'
 
 const today = moment(new Date())
 
@@ -46,18 +36,5 @@ export const getUser = userId =>
   makeGetRequest(`${API_ENDPOINT}/users/${userId}`)
 
 export const bookAppointment = async appointment => {
-  try {
-    const response = await fetch(`${API_ENDPOINT}/appointments`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(appointment),
-    })
-    const json = await response.json()
-    return json
-  } catch (e) {
-    console.error(e)
-    return null
-  }
+  return makePostRequest(`${API_ENDPOINT}/appointments`, appointment)
 }
