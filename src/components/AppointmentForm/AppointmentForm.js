@@ -110,7 +110,7 @@ class AppointmentForm extends React.Component {
             </div>
           </fieldset>
 
-          {appointmentSlots.available.length > 0 && (
+          {appointment.consultantType && (
             <fieldset className="form-section">
               <legend className="form-section-title">
                 <span className="form-section-icon">
@@ -184,7 +184,7 @@ class AppointmentForm extends React.Component {
 
         <button
           disabled={!this.canSubmitForm()}
-          className="submit-button"
+          className="button"
           type="submit"
         >
           Book

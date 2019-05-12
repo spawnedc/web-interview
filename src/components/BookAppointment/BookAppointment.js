@@ -3,8 +3,8 @@ import React from 'react'
 import AppointmentForm from '../../containers/AppointmentForm'
 import UserBox from '../../containers/UserBox'
 import { bookAppointment } from '../../services/api'
-import BookingSuccess from '../BookingSuccess/BookingSuccess'
 import BookingError from '../BookingError/BookingError'
+import BookingSuccess from '../BookingSuccess/BookingSuccess'
 import './BookAppointment.scss'
 
 class BookAppointment extends React.Component {
@@ -18,6 +18,7 @@ class BookAppointment extends React.Component {
     isInProgress: PropTypes.bool.isRequired,
     isSuccess: PropTypes.bool.isRequired,
     isFailure: PropTypes.bool.isRequired,
+    resetAppointment: PropTypes.func.isRequired,
   }
 
   onSubmit = async data => {
@@ -32,6 +33,11 @@ class BookAppointment extends React.Component {
     }
   }
 
+  onBookNewAppointment = () => {
+    this.props.resetAppointment()
+    this.props.resetBooking()
+  }
+
   render() {
     const { booking, isIdle, isInProgress, isSuccess, isFailure } = this.props
     const { appointment, error } = booking
@@ -42,7 +48,12 @@ class BookAppointment extends React.Component {
 
         <UserBox userId={1} />
 
-        {isSuccess && <BookingSuccess appointment={appointment} />}
+        {isSuccess && (
+          <BookingSuccess
+            appointment={appointment}
+            onBookNewAppointment={this.onBookNewAppointment}
+          />
+        )}
 
         {isFailure && <BookingError error={error} />}
 

@@ -1,8 +1,9 @@
 import {
-  SET_APPOINTMENT_SLOT,
-  SET_CONSULTANT_TYPE,
-  SET_APPOINTMENT_TYPE,
+  RESET_APPOINTMENT,
   SET_APPOINTMENT_NOTES,
+  SET_APPOINTMENT_SLOT,
+  SET_APPOINTMENT_TYPE,
+  SET_CONSULTANT_TYPE,
 } from '../actionTypes'
 
 const initialState = {
@@ -39,6 +40,11 @@ const appointmentSlotsReducer = (state = initialState, action) => {
       return {
         ...state,
         notes: action.payload,
+      }
+
+    case RESET_APPOINTMENT:
+      return {
+        ...initialState,
       }
 
     default:

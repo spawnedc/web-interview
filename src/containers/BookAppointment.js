@@ -1,12 +1,13 @@
 import { connect } from 'react-redux'
+import { resetAppointment } from '../actions/appointment'
+import {
+  bookingFailure,
+  bookingSuccess,
+  resetBooking,
+  startBooking,
+} from '../actions/booking.js'
 import BookAppointment from '../components/BookAppointment/BookAppointment'
 import bookingStatus from '../constants/bookingStatus'
-import {
-  startBooking,
-  resetBooking,
-  bookingSuccess,
-  bookingFailure,
-} from '../actions/booking.js'
 
 const mapStateToProps = state => ({
   booking: state.booking,
@@ -21,6 +22,7 @@ const mapDispatchToProps = dispatch => ({
   resetBooking: () => dispatch(resetBooking()),
   bookingSuccess: appointment => dispatch(bookingSuccess(appointment)),
   bookingFailure: error => dispatch(bookingFailure(error)),
+  resetAppointment: () => dispatch(resetAppointment()),
 })
 
 export default connect(

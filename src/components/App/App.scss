@@ -15,15 +15,19 @@
 }
 
 .button {
-  box-sizing: border-box;
-  padding: 12px;
-  background-color: $primary-dark;
-  color: $secondary-light;
-  width: calc(25% - 12px);
-  height: 42px;
-  margin-right: 12px;
-  display: inline-block;
-  text-align: center;
+  background: $positive;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  height: 40px;
+  margin-top: $gutter-size--large;
+  width: 100%;
+
+  &:disabled {
+    background-color: $secondary-dark;
+    opacity: .5;
+  }
 }
 
 .section-title {

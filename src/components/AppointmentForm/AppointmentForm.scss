@@ -33,22 +33,6 @@
     }
   }
 
-  .submit-button {
-    background: $positive;
-    border: 0;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: bold;
-    height: 40px;
-    margin-top: $gutter-size--large;
-    width: 100%;
-
-    &:disabled {
-      background-color: $secondary-dark;
-      opacity: .5;
-    }
-  }
-
   .appointment-notes {
     border-radius: 10px;
     height: 100px;

@@ -1,18 +1,16 @@
 import {
+  BOOKING_FAILURE,
+  BOOKING_SUCCESS,
   RESET_BOOKING,
   START_BOOKING,
-  BOOKING_SUCCESS,
-  BOOKING_FAILURE,
 } from '../actionTypes'
 
-export const resetBooking = consultantType => ({
+export const resetBooking = () => ({
   type: RESET_BOOKING,
-  payload: consultantType,
 })
 
-export const startBooking = appointmentSlot => ({
+export const startBooking = () => ({
   type: START_BOOKING,
-  payload: appointmentSlot,
 })
 
 export const bookingSuccess = appointment => ({

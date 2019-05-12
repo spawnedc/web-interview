@@ -10,7 +10,7 @@ const appointmentSlotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_APPOINTMENT_SLOTS:
       return {
-        ...state,
+        ...initialState,
         all: action.payload,
       }
 
